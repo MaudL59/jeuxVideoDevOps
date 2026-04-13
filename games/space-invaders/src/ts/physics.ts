@@ -54,7 +54,7 @@ export function init() {
   };
 }
 
-function calculate({ input, deltaTime, addPoints }: PhysicsData): PhysicsOutput {
+export function calculate({ input, deltaTime, addPoints }: PhysicsData): PhysicsOutput {
   for (const pKey in particles) {
     const particle = particles[pKey];
     particle.age += deltaTime;
@@ -146,4 +146,15 @@ function calculate({ input, deltaTime, addPoints }: PhysicsData): PhysicsOutput 
     particles,
     gameOver
   };
+}
+
+export function reset() {
+  enemies.length = 0;
+  enemies.push(createEnemy(Type.Basic));
+  projectiles.length = 0;
+  gameOver = false;
+  spawnTimer = 0;
+  fireTimer = 0;
+  currentPosition = {x: 0, y: 1};
+  destination = { x: 0, y: 1};
 }
