@@ -1,0 +1,334 @@
+# Début du Pipeline
+# le worflow est tout ce fichier YAML
+name: Continuous Integration
+# (Intégration Continue) : Son rôle est de vérifier la qualité du code.
+on:
+  # Les triggers sont les événements qui vont déclencher le workflow
+  push:
+  pull_request:
+    branches:
+      - dev
+  workflow_dispatch:
+
+jobs:
+  # c'est le nom du job
+  jeu_1_two_ship:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+       
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+  jeu_2_space_invaders:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./games/space-invaders
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Audit des dépendances
+        run: npm audit 
+        # Commande demandée par la consigne
+
+      - name: Installation des dépendances
+        run: npm install
+
+      - name: Vérification du style (Linter)
+        run: npm run lint
+        # lancement de liner
+
+      - name: Build du projet (Transpilation TS -> JS)
+        run: npm run build
+        # lancement de la build traduction du TS en JS
+
+      - name: Exécution des tests
+        run: npm run test
+        # lancement des tests unitaires
+        
+      

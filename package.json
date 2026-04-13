@@ -1,0 +1,16 @@
+{
+  "name": "jeux-videos",
+  "version": "1.0.0",
+  "description": "Pipeline CI/CD pour l'automatisation et le déploiement de jeux vidéo rétro",
+  "scripts": {
+    "lint:two-ships": "eslint games/two-ships/",
+    "lint:space-invaders": "eslint games/space-invaders/",
+    "security-check": "npm audit",
+    "lint": "npm run lint:two-ships && npm run lint:space-invaders",
+    "test": "npm run security-check && npm run lint"
+  },
+  "devDependencies": {
+    "eslint": "^10.2.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
