@@ -4,14 +4,23 @@
     "build": "rm -rf build && parcel build -d build --public-url ./ --no-source-maps ./src/index.html",
     "zip": "rm -f bundle.zip && cd build && bestzip ../bundle.zip *",
     "bundle": "yarn build && yarn zip",
-    "lint": "eslint ./src --ext .ts --format github",
+    "lint": "eslint ./src",
     "test": "vitest run",
     "audit": "npm audit"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.58.2",
+    "@typescript-eslint/parser": "^8.58.2",
     "bestzip": "^2.2.0",
-    "parcel-bundler": "^1.12.5",
+    "eslint-config-google": "^0.14.0",
+    "parcel-bundler": "^1.8.1",
     "sass": "^1.39.0",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.2",
+    "vitest": "^4.1.4"
+  },
+  "overrides": {
+    "braces": "3.0.3",
+    "micromatch": "4.0.8",
+    "postcss": "8.4.31"
   }
 }
