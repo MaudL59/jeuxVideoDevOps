@@ -321,5 +321,19 @@ jobs:
         run: npm install
 
       - name: Build (Traduction TS vers JS)
-        run: npm run build --prefix games/space-invaders
+        run: npm run build
+        # lancement de la build traduction du TS en JS
+        
+      - name: Debug - Liste des fichiers après build
+        run: |
+          ls -R
       
+      - name: Déploiement sur GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          # la branche sur laquelle on va déployer, elle doit être créée au préalable
+          folder: games/space-invaders/build
+          # le dossier à déployer, c'est le dossier de build généré par la commande npm run build
+          target-folder: space-invaders
+          # le dossier cible sur la branche gh-pages, cela permet d'avoir une URL dédiée pour ce jeu
