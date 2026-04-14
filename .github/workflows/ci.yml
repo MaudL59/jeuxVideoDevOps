@@ -311,24 +311,31 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          
-      - name: Audit des dépendances
-        run: npm audit 
-        # Commande demandée par la consigne
-
+          cache: 'npm'
+          cache-dependency-path: ./games/space-invaders/package-lock.json
+        
       - name: Installation des dépendances
-        run: npm install
+        run: npm ci
+        # npm ci est une commande optimisée pour les environnements CI, elle installe les dépendances exactement comme spécifié dans le package-lock.json
 
       - name: Vérification du style (Linter)
         run: npm run lint
         # lancement de liner
-
-      - name: Build du projet (Transpilation TS -> JS)
-        run: npm run build
-        # lancement de la build traduction du TS en JS
-
+    
+      - name: Sécurité - Scan des vulnérabilités
+        run: npm audit --audit-level=high
+        # vérification des vulnérabilités de sécurité dans les dépendances, en échouant si des vulnérabilités de niveau "high" ou supérieur sont trouvées
+      
       - name: Exécution des tests
         run: npm run test
         # lancement des tests unitaires
         
+      - name: Build du projet (Transpilation TS -> JS)
+        run: npm run build
+        # lancement de la build traduction du TS en JS
+        
+      - name: Vérification du build
+        run: ls -la build/index.html
+        # Vérifie que le fichier principal a bien été généré
+
       
