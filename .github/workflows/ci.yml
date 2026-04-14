@@ -378,6 +378,11 @@ jobs:
         run: npm ci
         # npm ci est une commande optimisée pour les environnements CI, elle installe les dépendances exactement comme spécifié dans le package-lock.json
         
+      - name: Debug - Liste des fichiers
+        run: |
+          pwd
+          ls -R src/
+        
         
       - name: Build du projet (Transpilation TS -> JS)
         run: npm run build
