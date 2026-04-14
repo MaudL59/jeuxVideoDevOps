@@ -51,5 +51,9 @@
     "arrowParens": "avoid",
     "singleQuote": true,
     "trailingComma": "all"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "lint": "eslint tests/ --ext .ts"
   }
 }
