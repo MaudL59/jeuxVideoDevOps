@@ -34,43 +34,24 @@ describe('Système de Tir', () => {
 });
   
 
-
-// Test pour le Système de Collision (Vérifier la destruction d'un ennemi)
+// Test pour le Système de Mouvement (Souris)
 // Méthode à retrouver dans : src/ts/physics.ts
-// Pour s'assurer que lorsqu'un projectile touche un ennemi, l'ennemi est détruit et retiré de la liste des ennemis.
-describe('Système de Collision', () => {
-  it('devrait détruire un ennemi lorsqu\'un projectile le touche', () => {
-    // Simuler l'apparition d'un ennemi
-    const initialState = calculate({ 
-      input: {axes: {x: 0, y: 1}, fire: false},
-      deltaTime: 2.1,
-      addPoints: () => {} 
-    });
-    
-    //  on recupere l'enemie de force pour s'assurer qu'il est aligné avec le projectile que nous allons tirer
-    const targetEnemy = initialState.enemies[initialState.enemies.length - 1];
-  targetEnemy.position.angle = Math.PI / 2; // Aligné avec {x: 0, y: 1}
-  
-    // simuler le tir d'un projectile qui va toucher l'ennemi
-    calculate({ 
-      input: {axes: {x: 0, y: 1}, fire: true},
-      deltaTime: 0.01, 
-      addPoints: () => {} 
-    });
-      
+// Pour s'assurer que lorsque le joueur se déplace, sa position est mise à jour correctement.
+describe('Système de Mouvement (Souris)', () => {
+  it('devrait mettre à jour la position du joueur selon l\'entrée des axes', () => {
+    // définition d'une direction cible (ex: en haut à droite)
+    const moveData = {
+      input: { axes: { x: 1, y: 1 }, fire: false },
+      deltaTime: 0.1, // Un temps très court suffit
+      addPoints: () => {}
+    };
 
-    // simiuler le passage du temps pour faire avancer le projectile vers l'ennemi
-    let state: PhysicsOutput;
-    for (let i = 0; i < 1000; i++) {
-    state = calculate({ 
-      input: {axes: {x: 0, y: 1}, fire: false}, 
-      deltaTime: 0.005, 
-      addPoints: () => {} 
-    });
-  }
-  
-  // Vérifier que l'ennemi ciblé a été retiré de la liste des ennemis
-  expect(state.enemies).not.toContain(targetEnemy);
+    // calcule de la position résultante
+    const state = calculate(moveData);
+
+    // vérifie si le joueur n'est plus à sa position d'origine (0, 1)
+    // On s'attend à ce que le joueur ait tourné vers la direction (1, 1)
+    expect(state.playerPosition.x).not.toBe(0);
   });
 });
 

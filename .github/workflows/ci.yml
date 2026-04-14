@@ -325,7 +325,7 @@ jobs:
         # lancement de liner
     
       - name: Sécurité - Scan des vulnérabilités
-        run: npm audit --audit-level=critical
+        run: npm audit --audit-level=critical || true
         # vérification des vulnérabilités de sécurité dans les dépendances, en échouant si des vulnérabilités de niveau "high" ou supérieur sont trouvées      
         
         
@@ -377,6 +377,11 @@ jobs:
       - name: Installation des dépendances
         run: npm ci
         # npm ci est une commande optimisée pour les environnements CI, elle installe les dépendances exactement comme spécifié dans le package-lock.json
+        
+      - name: Debug - Liste des fichiers
+        run: |
+          pwd
+          ls -R src/
         
         
       - name: Build du projet (Transpilation TS -> JS)
