@@ -6,7 +6,7 @@
     "lint:two-ships": "eslint games/two-ships/",
     "lint:space-invaders": "eslint games/space-invaders/",
     "security-check": "npm audit",
-    "lint": "npm run lint:two-ships && npm run lint:space-invaders",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint ./src --ext .ts --format github",
     "test": "npm run security-check && npm run lint"
   },
   "devDependencies": {
