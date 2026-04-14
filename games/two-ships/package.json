@@ -38,7 +38,8 @@
     "roadroller": "2.1.0",
     "rollup": "2.56.3",
     "through2": "4.0.2",
-    "vite": "2.5.6"
+    "vite": "2.5.6",
+    "vitest": "^4.1.4"
   },
   "resolutions": {
     "anymatch": "3.1.2",

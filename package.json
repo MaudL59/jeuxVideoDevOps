@@ -4,15 +4,15 @@
   "description": "Pipeline CI/CD pour l'automatisation et le déploiement de jeux vidéo rétro",
   "scripts": {
     "lint:two-ships": "eslint games/two-ships/ --ext .js",
-    
-    "lint:space-invaders": "eslint games/space-invaders/ --ext .js",
+    "lint:space-invaders": "eslint games/space-invaders/ --ext .js,.ts",
     "security-check": "npm audit",
     "lint": "npm run lint:two-ships && npm run lint:space-invaders",
-    "test": "npm run security-check && npm run lint"
+    "test": "npm run security-check && npm run lint && vitest run"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^8.58.1",
     "eslint": "^10.2.0",
-    "eslint-config-google": "^0.14.0"
+    "eslint-config-google": "^0.14.0",
+    "vitest": "^4.1.4"
   }
-  
 }
