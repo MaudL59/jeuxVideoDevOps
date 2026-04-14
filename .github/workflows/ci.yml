@@ -320,6 +320,8 @@ jobs:
 
       - name: Vérification du style (Linter)
         run: npm run lint
+        env:
+          ESLINT_USE_FLAT_CONFIG: false
         # lancement de liner
     
       - name: Sécurité - Scan des vulnérabilités
