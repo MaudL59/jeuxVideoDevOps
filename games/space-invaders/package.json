@@ -1,9 +1,9 @@
 {
   "scripts": {
-    "start": "parcel ./src/index.html",
-    "build": "rm -rf build && parcel build -d build --public-url ./ --no-source-maps ./src/index.html",
+    "start": "parcel src/index.html",
+    "build": "rm -rf build && parcel build src/index.html -d build --public-url ./ --no-source-maps",
     "zip": "rm -f bundle.zip && cd build && bestzip ../bundle.zip *",
-    "bundle": "yarn build && yarn zip",
+    "bundle": "npm run build && npm run zip",
     "lint": "eslint ./src",
     "test": "vitest run",
     "audit": "npm audit"

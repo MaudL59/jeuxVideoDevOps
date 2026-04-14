@@ -384,7 +384,7 @@ jobs:
           ls -R src/
         
         
-      - name: Build du projet (Transpilation TS -> JS)
+      - name: Build du projet (Traduction TS -> JS)
         run: npm run build
         # lancement de la build traduction du TS en JS
         
