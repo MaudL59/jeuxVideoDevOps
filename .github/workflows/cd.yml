@@ -330,6 +330,10 @@ jobs:
       - name: Build (Traduction TS vers JS)
         run: npm run build
         # lancement de la build traduction du TS en JS
+        
+      - name: Debug - Liste des fichiers après build
+        run: |
+          ls -R
       
       - name: Déploiement sur GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
