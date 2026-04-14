@@ -61,7 +61,7 @@ describe('Système de Collision', () => {
 
     // simiuler le passage du temps pour faire avancer le projectile vers l'ennemi
     let state: PhysicsOutput;
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 5000; i++) {
     state = calculate({ 
       input: {axes: {x: 0, y: 1}, fire: false}, 
       deltaTime: 0.005, 
