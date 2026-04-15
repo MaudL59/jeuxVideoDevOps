@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "test": "vitest run",
+    "lint": "eslint tests/ --ext .ts"
   },
   "repository": {
     "type": "git",
@@ -51,9 +53,6 @@
     "arrowParens": "avoid",
     "singleQuote": true,
     "trailingComma": "all"
-  },
-  "scripts": {
-    "test": "vitest run",
-    "lint": "eslint tests/ --ext .ts"
   }
+  
 }

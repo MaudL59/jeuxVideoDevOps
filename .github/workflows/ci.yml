@@ -1,22 +1,32 @@
 # Début du Pipeline
-# le worflow est tout ce fichier YAML
-name: Continuous Integration
-# (Intégration Continue) : Son rôle est de vérifier la qualité du code.
+
+# Le workflow est tout ce fichier YAML
+name: CI for Two Ships
 on:
-  # Les triggers sont les événements qui vont déclencher le workflow
   push:
+    branches: [ main ]
   pull_request:
-    branches:
-      - dev
-  workflow_dispatch:
+    branches: [ main ]
 
 jobs:
-  # c'est le nom du job
-  jeu_1_two_ship:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout du code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: games/two-ships
+
+      - name: Run tests
+        run: npm run test
+        working-directory: games/two-ships
 
         
         
