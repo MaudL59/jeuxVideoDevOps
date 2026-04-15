@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation des Jeux Two Ships et Space Invaders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center">
+
+    <div class="container mx-auto px-4 py-12">
+        <header class="text-center mb-16">
+            <h1 class="text-5xl font-black text-gray-900 mb-4 tracking-tight">
+                JEUX VIDEOPS
+            </h1>
+            <p class="text-gray-600 text-lg">
+                Découvrez nos deux jeux rétro, Two Ships Passing In The Night et Space Invaders, développés avec passion et déployés grâce à notre pipeline CI/CD.
+        </header>
+        
+        <div class="flex flex-col md:flex-row justify-center items-stretch gap-10">
+            
+            <section class="flex-1 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col">
+                <img src="imgTwoShips.png" alt="Capture d'écran de Two Ships" class="w-full h-56 object-cover">
+                <div class="p-8 flex flex-col flex-grow text-center">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Two Ships Passing In The Night</h2>
+                    <p class="text-gray-600 mb-8 flex-grow">
+                        Affrontez des vagues d'ennemis fonçant sur vous. Utilisez votre souris pour viser et tirer, tout en vous manœuvrant avec les touches fléchées pour échapper au chaos spatial.
+                    </p>
+                    <a href="https://maudl59.github.io/jeuxVideoDevOps/space-invaders/" class="inline-block bg-blue-600 hover:bg-blue-800 text-white font-bold py-4 px-8 rounded-xl transition-colors shadow-lg">
+                        LANCER LE JEU
+                    </a>
+                </div>
+            </section>
+            
+            <section class="flex-1 bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col">
+                <img src="imgSpaceInvader.png" alt="Capture d'écran de Space Invaders" class="w-full h-56 object-cover">
+                <div class="p-8 flex flex-col flex-grow text-center">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Space Invaders</h2>
+                    <p class="text-gray-600 mb-8 flex-grow">
+                        Posté au centre de la zone, vous êtes le dernier rempart. Pivotez et tirez à la souris pour éliminer les menaces surgissant de tous les côtés dans cette version survie du grand classique.
+                    </p>
+                    <a href="https://maudl59.github.io/jeuxVideoDevOps/two-ships/" class="inline-block bg-red-600 hover:bg-red-800 text-white font-bold py-4 px-8 rounded-xl transition-colors shadow-lg">
+                        LANCER LE JEU
+                    </a>
+                </div>
+            </section>
+            
+        </div>
+
+        <footer class="mt-16 text-center text-gray-500 text-sm">
+            <p>Projet CI/CD - {EPITECH} Equipe: Aminata Barry et Maud lecoeuvre</p>
+             <p>Two Ships Passing In The Night un jeu créé par razh retrouvé son github repo <a href="https://github.com/razh/js13k-2021/tree/fd4b9e6e1954b8850125c0a7a0219db0607bf37e" class="text-blue-500 hover:text-blue-700">ici</a></p>
+             <p>Space Invaders un jeu créé par KonradLinkowski retrouvé son github repo <a href="https://github.com/KonradLinkowski/SpaceInvaders/tree/e664e935fa518d7edea6a0db6d779da46edd0a90" class="text-red-500 hover:text-red-700">ici</a></p>
+        </footer>
+    </div>
+    
+</body>
+</html>
