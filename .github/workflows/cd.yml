@@ -324,7 +324,10 @@ jobs:
           node-version: '20'
           
       - name: Installation
-        run: npm install
+        run: |
+          rm -rf node_modules package-lock.json
+          npm cache clean --force
+          npm install
         # installation des dépendances du projet (node_modules)
 
       - name: Build (Traduction TS vers JS)
