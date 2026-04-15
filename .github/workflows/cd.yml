@@ -4,7 +4,12 @@ name: CD for Two Ships
 
 on:
   push:
-    branches: [ main ] # Se lance quand on push sur main
+    branches:
+      - dev
+      - main 
+      
+permissions:
+  contents: write
 
 jobs:
   deploy_two_ships:
@@ -314,13 +319,15 @@ jobs:
       
   deploy_jeu_2_space_invaders:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/dev' 
-    # On ne déploie que si on est sur la branche dev
+    if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main'
+    # On ne déploie que si on est sur la branche dev ou main
     defaults:
       run:
         working-directory: ./games/space-invaders
+        # aller dans le dossier du jeu pour faire les étapes suivantes
     steps:
       - uses: actions/checkout@v4
+        # checkout du code, c'est à dire récupérer le code de la branche courante pour pouvoir travailler dessus
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -328,8 +335,26 @@ jobs:
           node-version: '20'
           
       - name: Installation
-        run: npm install
+        run: |
+          rm -rf node_modules package-lock.json
+          npm cache clean --force
+          npm install
+        # installation des dépendances du projet (node_modules)
 
       - name: Build (Traduction TS vers JS)
-        run: npm run build --prefix games/space-invaders
+        run: npm run build
+        # lancement de la build traduction du TS en JS
+        
+      - name: Debug - Liste des fichiers après build
+        run: |
+          ls -R
       
+      - name: Déploiement sur GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          # la branche sur laquelle on va déployer, elle doit être créée au préalable
+          folder: games/space-invaders/build
+          # le dossier à déployer, c'est le dossier de build généré par la commande npm run build
+          target-folder: space-invaders
+          # le dossier cible sur la branche gh-pages, cela permet d'avoir une URL dédiée pour ce jeu

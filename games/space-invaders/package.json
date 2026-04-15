@@ -1,26 +1,22 @@
 {
   "scripts": {
-    "start": "parcel ./src/index.html",
-    "build": "rm -rf build && parcel build -d build --public-url ./ --no-source-maps ./src/index.html",
+    "start": "parcel src/index.html",
+    "build": "rm -rf build && parcel build src/index.html --dist-dir build --public-url ./ --no-source-maps",
     "zip": "rm -f bundle.zip && cd build && bestzip ../bundle.zip *",
-    "bundle": "yarn build && yarn zip",
+    "bundle": "npm run build && npm run zip",
     "lint": "eslint ./src",
     "test": "vitest run",
     "audit": "npm audit"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.16.4",
     "@typescript-eslint/eslint-plugin": "^8.58.2",
     "@typescript-eslint/parser": "^8.58.2",
     "bestzip": "^2.2.0",
     "eslint-config-google": "^0.14.0",
-    "parcel-bundler": "^1.12.5",
+    "parcel": "^2.16.4",
     "sass": "^1.39.0",
     "typescript": "^4.4.2",
     "vitest": "^4.1.4"
-  },
-  "overrides": {
-    "braces": "3.0.3",
-    "micromatch": "4.0.8",
-    "postcss": "8.4.31"
   }
 }
