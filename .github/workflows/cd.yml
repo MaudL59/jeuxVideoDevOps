@@ -14,23 +14,31 @@ permissions:
 jobs:
   deploy_two_ships:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main'
+    # On ne déploie que si on est sur la branche dev ou main
     defaults:
       run:
         working-directory: ./games/two-ships
     steps:
       - uses: actions/checkout@v4
+      
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          
       - name: Installation
         run: npm ci
+        
       - name: Build du projet
         run: npm run build
+        
       - name: Déploiement GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./games/two-ships/dist
+          destination_dir: two-ships 
+          keep_files: true
       
       
       
