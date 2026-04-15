@@ -78,19 +78,19 @@ body {
       left: 50%;
       border-radius: 50%;
       border: 1px solid lightgray;
-      width: $size / 2;
-      height: $size / 2;
+      width: calc($size / 2);
+      height: calc($size / 2);
       transform: translate(-50%, -50%);
     }
 
     &-handle {
-      $handle-size: $size / 4;
+      $handle-size: calc($size / 4);
       position: relative;
       top: 50%;
       left: 50%;
       width: $handle-size;
       height: $handle-size;
-      transform: translate($size * 3 / 8, 0);
+      transform: translate(calc($size * 3 / 8), 0);
 
       &-image {
         position: relative;
@@ -106,8 +106,8 @@ body {
 
   &-actions {
     position: absolute;
-    bottom: $size / 4;
-    right: $size / 4;
+    bottom: calc($size / 4);
+    right: calc($size / 4);
 
     &-button {
       user-select: none;
