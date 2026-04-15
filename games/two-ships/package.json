@@ -2,10 +2,9 @@
   "name": "js13k-2021",
   "version": "1.0.0",
   "description": "https://razh.github.io/js13k-2021",
-  "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=./",
     "serve": "vite preview",
     "test": "vitest run",
     "lint": "eslint tests/ --ext .ts"
