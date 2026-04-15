@@ -1,9 +1,8 @@
 # Début du Pipeline
 # le worflow est tout ce fichier YAML
-name: Continuous Delivery
-# (Déploiement Continu) : Son rôle est de préparer la mise en ligne.
+name: CD for Two Ships
+
 on:
-    # Les triggers sont les événements qui vont déclencher le workflow
   push:
     branches:
       - dev
@@ -13,13 +12,25 @@ permissions:
   contents: write
 
 jobs:
-  deploy_jeu_1_two_ships:
+  deploy_two_ships:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./games/two-ships
     steps:
       - uses: actions/checkout@v4
-
-  
-
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Installation
+        run: npm ci
+      - name: Build du projet
+        run: npm run build
+      - name: Déploiement GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./games/two-ships/dist
       
       
       
