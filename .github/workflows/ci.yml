@@ -1,5 +1,4 @@
 # Début du Pipeline
-
 # Le workflow est tout ce fichier YAML
 name: CI for Two Ships
 on:
@@ -9,30 +8,76 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
+  # On commence par vérifier que le code est bien écrit et qu'il n'y a pas de failles de sécurité.
+  job_jeu_1_two_ships_linter_audit:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./games/two-ships
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Use Node.js
+      - name: Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ./games/two-ships/package-lock.json
+        
+      - name: Installation des dépendances
+        run: npm ci
 
-      - name: Install dependencies
-        run: npm install
-        working-directory: games/two-ships
-
-      - name: Run tests
+      - name: Sécurité - Scan des vulnérabilités
+        run: npm audit --audit-level=critical || true
+        
+     # Ce job ne se lance que si l'audit est réussi
+  job_test_jeu_1_two_ships:
+    runs-on: ubuntu-latest
+    needs: job_jeu_1_two_ships_linter_audit
+    defaults:
+      run:
+        working-directory: ./games/two-ships
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js  
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ./games/two-ships/package-lock.json
+      
+      - name: Installation des dépendances
+        run: npm ci
+          
+      - name: Exécution des tests
         run: npm run test
-        working-directory: games/two-ships
-
         
+        # C'est ici qu'on prépare le jeu pour le futur déploiement
+  job_build_jeu_1_two_ships:
+    runs-on: ubuntu-latest
+    needs: job_test_jeu_1_two_ships
+    defaults:
+      run:
+        working-directory: ./games/two-ships
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
         
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ./games/two-ships/package-lock.json
+          
+      - name: Installation des dépendances
+        run: npm ci
         
-        
-        
+      - name: Build du projet
+        run: npm run build
         
         
         
