@@ -12,6 +12,7 @@
     "@parcel/transformer-sass": "^2.16.4",
     "@typescript-eslint/eslint-plugin": "^8.58.2",
     "@typescript-eslint/parser": "^8.58.2",
+    "@vitest/coverage-v8": "^4.1.4",
     "bestzip": "^2.2.0",
     "eslint-config-google": "^0.14.0",
     "parcel": "^2.16.4",
