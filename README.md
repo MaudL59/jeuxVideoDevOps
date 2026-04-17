@@ -12,6 +12,19 @@ Le workflow automatise les étapes suivantes à chaque "push" ou "pull request" 
 
 Conformément aux exigences du projet, nous avons implémenté une suite de tests validant le cœur du gameplay.
 
+Choisissez le dossier du jeu (ex: `games/two-ships` ou `games/space-invaders`), puis lancez :
+
+```bash
+npm install
+npm run test
+```
+et pour les test vitest:
+
+```bash
+npm install
+npx vitest test
+```
+
 ### ✅ État des Tests pour Two Ships Passing In The Night (Vitest)
 Les tests sont verts et valident les 8 scénarios critiques :
 
@@ -45,15 +58,3 @@ Nous utilisons `npm audit` pour détecter les failles de sécurité dans les dé
 - `build-space-invaders` : Contient le dossier de build (`build`).
 
 *Ces fichiers sont conservés 90 jours et permettent un déploiement manuel rapide.* 
-
-
-## 🛠️ Développement Local
-Pour tester les jeux sur votre machine, suivez ces étapes :
-
-### Installation des dépendances (obligatoire la première fois) puis lancement des test en local :
-Choisissez le dossier du jeu (ex: `games/two-ships` ou `games/space-invaders`), puis lancez :
-
-```bash
-npm install
-npm run test
-```
