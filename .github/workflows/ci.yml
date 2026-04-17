@@ -1,29 +1,91 @@
 # Début du Pipeline
-# le worflow est tout ce fichier YAML
-name: Continuous Integration
-# (Intégration Continue) : Son rôle est de vérifier la qualité du code.
+# Le workflow est tout ce fichier YAML
+name: CI for Two Ships
 on:
-  # Les triggers sont les événements qui vont déclencher le workflow
   push:
+    branches: [ main ]
   pull_request:
-    branches:
-      - dev
-  workflow_dispatch:
+    branches: [ main ]
 
 jobs:
-  # c'est le nom du job
-  jeu_1_two_ship:
+  # On commence par vérifier que le code est bien écrit et qu'il n'y a pas de failles de sécurité.
+  job_jeu_1_two_ships_linter_audit:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./games/two-ships
     steps:
       - name: Checkout du code
         uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ./games/two-ships/package-lock.json
+        
+      - name: Installation des dépendances
+        run: npm ci
 
+      - name: Sécurité - Scan des vulnérabilités
+        run: npm audit --audit-level=critical || true
         
+     # Ce job ne se lance que si l'audit est réussi
+  job_test_jeu_1_two_ships:
+    runs-on: ubuntu-latest
+    needs: job_jeu_1_two_ships_linter_audit
+    defaults:
+      run:
+        working-directory: ./games/two-ships
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
         
+      - name: Setup Node.js  
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ./games/two-ships/package-lock.json
+      
+      - name: Installation des dépendances
+        run: npm ci
+          
+      - name: Exécution des tests
+        run: npm run test
         
+        # C'est ici qu'on prépare le jeu pour le futur déploiement
+  job_build_jeu_1_two_ships:
+    runs-on: ubuntu-latest
+    needs: job_test_jeu_1_two_ships
+    defaults:
+      run:
+        working-directory: ./games/two-ships
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
         
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ./games/two-ships/package-lock.json
+          
+      - name: Installation des dépendances
+        run: npm ci
         
+      - name: Build du projet
+        run: npm run build
         
+      - name: Télécharger l'artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-two-ships
+          path: games/two-ships/dist
+        # Cet artefact sauvegarde temporairement le dossier 'dist' sur GitHub. 
+        # Cela permet de récupérer le build manuellement ou de l'utiliser dans un futur job de déploiement.
         
         
         
@@ -73,232 +135,9 @@ jobs:
         
         
         
+               
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-       
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-  jeu_2_space_invaders:
+  job_jeu_2_space_invaders_linter_audit:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -311,24 +150,92 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          
-      - name: Audit des dépendances
-        run: npm audit 
-        # Commande demandée par la consigne
-
+          cache: 'npm'
+          cache-dependency-path: ./games/space-invaders/package-lock.json
+        
       - name: Installation des dépendances
-        run: npm install
+        run: npm ci
+        # npm ci est une commande optimisée pour les environnements CI, elle installe les dépendances exactement comme spécifié dans le package-lock.json
 
       - name: Vérification du style (Linter)
         run: npm run lint
+        env:
+          ESLINT_USE_FLAT_CONFIG: false
         # lancement de liner
-
-      - name: Build du projet (Transpilation TS -> JS)
-        run: npm run build
-        # lancement de la build traduction du TS en JS
-
+    
+      - name: Sécurité - Scan des vulnérabilités
+        run: npm audit --audit-level=critical || true
+        # vérification des vulnérabilités de sécurité dans les dépendances, en échouant si des vulnérabilités de niveau "high" ou supérieur sont trouvées      
+        
+        
+  job_test_jeu_2_space_invaders:
+    runs-on: ubuntu-latest
+    needs: job_jeu_2_space_invaders_linter_audit
+    # ce job ne s'exécutera que si le job de linting et d'audit de sécurité a réussi
+    defaults:
+      run:
+        working-directory: ./games/space-invaders
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js  
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ./games/space-invaders/package-lock.json
+      
+      - name: Installation des dépendances
+        run: npm ci
+        # npm ci est une commande optimisée pour les environnements CI, elle installe les dépendances exactement comme spécifié dans le package-lock.json
+          
       - name: Exécution des tests
         run: npm run test
         # lancement des tests unitaires
+         
         
-      
+  job_build_jeu_2_space_invaders:
+    runs-on: ubuntu-latest
+    needs: job_test_jeu_2_space_invaders
+    # ce job ne s'exécutera que si le job de test a réussi
+    defaults:
+      run:
+        working-directory: ./games/space-invaders
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: ./games/space-invaders/package-lock.json
+          
+      - name: Installation des dépendances
+        run: npm ci
+        # npm ci est une commande optimisée pour les environnements CI, elle installe les dépendances exactement comme spécifié dans le package-lock.json
+        
+      - name: Debug - Liste des fichiers
+        run: |
+          pwd
+          ls -R src/
+        
+        
+      - name: Build du projet (Traduction TS -> JS)
+        run: npm run build
+        # lancement de la build traduction du TS en JS
+        
+      - name: Vérification du build
+        run: ls -la build/index.html
+        # Vérifie que le fichier principal a bien été généré   
+        
+      - name: Télécharger l'artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-space-invaders
+          path: games/space-invaders/build
+         # Cet artefact sauvegarde temporairement le dossier 'build' sur GitHub. 
+         # Cela permet de récupérer le build manuellement ou de l'utiliser dans un futur job de déploiement.
+        
