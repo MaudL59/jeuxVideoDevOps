@@ -1,0 +1,14 @@
+services:
+  jeu-two-ships:
+    build:
+      context: ./games/two-ships
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"
+
+  jeu-space-invaders:
+    build:
+      context: ./games/space-invaders
+      dockerfile: Dockerfile
+    ports:
+      - "8082:80"
