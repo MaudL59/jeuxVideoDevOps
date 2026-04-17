@@ -79,6 +79,13 @@ jobs:
       - name: Build du projet
         run: npm run build
         
+      - name: Télécharger l'artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-two-ships
+          path: games/two-ships/dist
+        # Cet artefact sauvegarde temporairement le dossier 'dist' sur GitHub. 
+        # Cela permet de récupérer le build manuellement ou de l'utiliser dans un futur job de déploiement.
         
         
         
@@ -128,230 +135,7 @@ jobs:
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-       
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+               
         
   job_jeu_2_space_invaders_linter_audit:
     runs-on: ubuntu-latest
@@ -445,4 +229,13 @@ jobs:
         
       - name: Vérification du build
         run: ls -la build/index.html
-        # Vérifie que le fichier principal a bien été généré    
+        # Vérifie que le fichier principal a bien été généré   
+        
+      - name: Télécharger l'artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-space-invaders
+          path: games/space-invaders/build
+         # Cet artefact sauvegarde temporairement le dossier 'build' sur GitHub. 
+         # Cela permet de récupérer le build manuellement ou de l'utiliser dans un futur job de déploiement.
+        
